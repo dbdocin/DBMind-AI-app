@@ -17,7 +17,7 @@ export function LegalPage({ eyebrow, title, updated, disclaimer, sections }: Leg
     <>
       <section className="py-16">
         <div className="mx-auto max-w-container px-5 sm:px-8">
-          <span className="font-mono text-[12.5px] font-medium text-indigo">{eyebrow}</span>
+          <span className="font-mono text-[14px] font-semibold tracking-wide text-indigo">{eyebrow}</span>
           <h1 className="mt-3.5 text-[32px] font-extrabold text-navy sm:text-[38px]">{title}</h1>
           <div className="mt-2.5 font-mono text-[13px] text-ink-faint">{updated}</div>
 

@@ -34,7 +34,7 @@ export function Hero({ eyebrow, title, lead, primaryCta, secondaryCta, breadcrum
               / {breadcrumbLabel}
             </div>
           )}
-          {eyebrow && <span className="font-mono text-[12.5px] font-medium text-indigo">{eyebrow}</span>}
+          {eyebrow && <span className="font-mono text-[14px] font-semibold tracking-wide text-indigo">{eyebrow}</span>}
           <h1 className="mt-[18px] text-[34px] font-extrabold leading-[1.1] tracking-tight text-navy sm:text-[44px] lg:text-[54px]">
             {title}
           </h1>
