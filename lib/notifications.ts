@@ -85,6 +85,14 @@ export async function sendInternalLeadNotification(lead: StoredLead): Promise<vo
 
   if (!isResendConfigured()) {
     console.info('[notifications] internal lead notification (not sent, no provider configured):', payload);
+    // TEMPORARY DIAGNOSTIC — remove once email is confirmed working.
+    // Prints only whether each variable is present, never the actual secret.
+    console.info('[notifications] DEBUG config check:', {
+      EMAIL_PROVIDER: process.env.EMAIL_PROVIDER ?? '(unset)',
+      hasResendApiKey: Boolean(process.env.RESEND_API_KEY),
+      hasEmailFromAddress: Boolean(process.env.EMAIL_FROM_ADDRESS),
+      emailFromAddressValue: process.env.EMAIL_FROM_ADDRESS ?? '(unset)',
+    });
     return;
   }
 
