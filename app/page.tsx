@@ -4,6 +4,7 @@ import { Hero } from '@/components/Hero';
 import { TrustBar } from '@/components/TrustBar';
 import { ServiceSection } from '@/components/ServiceSection';
 import { AIShowcase } from '@/components/AIShowcase';
+import { DatabaseNewsFeed } from '@/components/DatabaseNewsFeed';
 
 export const metadata: Metadata = {
   title: 'AI-Powered Database Consulting & Migration',
@@ -100,6 +101,8 @@ export default function HomePage() {
           <AIShowcase />
         </div>
       </section>
+
+      <DatabaseNewsFeed />
 
       <section className="py-24">
         <div className="mx-auto max-w-[760px] px-5 sm:px-8">
