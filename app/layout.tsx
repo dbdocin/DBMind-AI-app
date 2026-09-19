@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.svg',
   },
+  verification: {
+    google: 'cNZIqI3XYuEfhtL6yfXmS-MnBhW5FIOFDkyzgTgk1tA',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
