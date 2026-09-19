@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hero } from '@/components/Hero';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getServiceSchema, getBreadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
   title: 'Database Performance & Reliability Consulting',
@@ -31,9 +33,22 @@ const WHAT_WE_LOOK_AT = [
   'Workload pattern analysis',
 ];
 
+
+const serviceSchema = getServiceSchema({
+  name: 'Database Performance & Reliability',
+  description: 'Diagnose slow queries, indexing issues, blocking, deadlocks, and resource bottlenecks with a clear before/after baseline.',
+  url: '/performance',
+});
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Performance', url: '/performance' },
+]);
+
 export default function PerformancePage() {
   return (
     <>
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <Hero
         breadcrumbLabel="Performance"
         eyebrow="Performance & reliability"

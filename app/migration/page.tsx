@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hero } from '@/components/Hero';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getServiceSchema, getBreadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
   title: 'Database Migration & Modernization Consulting',
@@ -40,9 +42,22 @@ const APPROACH = [
   { title: 'Optimize', body: 'Tune the target environment and stabilize production.' },
 ];
 
+
+const serviceSchema = getServiceSchema({
+  name: 'Database Migration & Modernization',
+  description: 'Homogeneous and cross-platform database migration, AI-assisted migration assessment, and a structured migration approach.',
+  url: '/migration',
+});
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Migration & Modernization', url: '/migration' },
+]);
+
 export default function MigrationPage() {
   return (
     <>
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <Hero
         breadcrumbLabel="Migration & Modernization"
         eyebrow="Database migration & modernization"

@@ -5,6 +5,8 @@ import { TrustBar } from '@/components/TrustBar';
 import { ServiceSection } from '@/components/ServiceSection';
 import { AIShowcase } from '@/components/AIShowcase';
 import { DatabaseNewsFeed } from '@/components/DatabaseNewsFeed';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getFaqSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
   title: 'AI-Powered Database Consulting & Migration',
@@ -74,6 +76,7 @@ const FAQS = [
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={getFaqSchema(FAQS.map((f) => ({ question: f.q, answer: f.a })))} />
       <Hero
         eyebrow="AI-Powered Database Consulting & Migration"
         title="Database consulting, migration & optimization — powered by AI."

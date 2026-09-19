@@ -5,6 +5,8 @@ import { Footer } from '@/components/layout/Footer';
 import { CookieBanner } from '@/components/CookieBanner';
 import { CookieConsentProvider } from '@/hooks/useCookieConsent';
 import { getSiteUrl } from '@/lib/site';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getOrganizationSchema } from '@/lib/structuredData';
 
 const siteUrl = getSiteUrl();
 
@@ -25,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="font-sans antialiased">
+        <JsonLd data={getOrganizationSchema()} />
         <CookieConsentProvider>
           <Header />
           <main>{children}</main>

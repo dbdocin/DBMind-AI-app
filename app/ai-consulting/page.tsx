@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hero } from '@/components/Hero';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getServiceSchema, getBreadcrumbSchema } from '@/lib/structuredData';
 import { AIShowcase } from '@/components/AIShowcase';
 
 export const metadata: Metadata = {
@@ -32,9 +34,22 @@ const PRINCIPLES = [
   { title: 'Full audit trail', body: 'Every recommendation, decision, and change is logged for compliance and review.' },
 ];
 
+
+const serviceSchema = getServiceSchema({
+  name: 'AI-Powered Database Optimization',
+  description: 'AI-assisted database analysis for assessment, root-cause analysis, and optimization, reviewed by database engineers.',
+  url: '/ai-consulting',
+});
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'AI Consulting', url: '/ai-consulting' },
+]);
+
 export default function AiConsultingPage() {
   return (
     <>
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <Hero
         breadcrumbLabel="AI Consulting"
         eyebrow="AI for databases"

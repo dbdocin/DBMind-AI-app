@@ -1,0 +1,27 @@
+# DBMind AI
+
+> AI-powered database consulting, migration, and optimization. DBMind AI combines
+> experienced database engineering with AI-assisted analysis and automation —
+> recommendations are always reviewed by a database engineer before reaching a
+> client; AI does not make autonomous changes to production systems.
+
+DBMind AI serves startups, SMBs, SaaS companies, and enterprise engineering teams
+across SQL Server, PostgreSQL, MySQL, Oracle, MongoDB, Azure, and AWS.
+
+## Core services
+
+- [Database Migration & Modernization](https://www.dbmindai.com/migration) — homogeneous (same-platform version upgrades, cloud lift-and-shift) and heterogeneous (cross-platform, e.g. Oracle to PostgreSQL) migrations, with AI-assisted migration assessment.
+- [Performance Optimization](https://www.dbmindai.com/performance) — diagnosing slow queries, indexing issues, blocking, deadlocks, and resource bottlenecks.
+- [Database Health Assessment](https://www.dbmindai.com/health-assessment) — a structured review of performance, reliability, security, configuration, and modernization opportunities.
+- [AI-Powered Database Optimization](https://www.dbmindai.com/ai-consulting) — AI-assisted assessment, root-cause analysis, and optimization recommendations, engineer-reviewed before implementation.
+
+## Other pages
+
+- [Get a Database Assessment](https://www.dbmindai.com/contact) — start a request; the form adapts based on which service you select.
+- [Privacy Policy](https://www.dbmindai.com/privacy)
+- [Terms of Service](https://www.dbmindai.com/terms)
+- [Cookie Policy](https://www.dbmindai.com/cookies)
+
+## Contact
+
+databasedoctor@dbmindai.com

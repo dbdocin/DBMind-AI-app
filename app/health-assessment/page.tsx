@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hero } from '@/components/Hero';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getServiceSchema, getBreadcrumbSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
   title: 'Database Health Assessment',
@@ -24,9 +26,22 @@ const DIMENSIONS = [
   { title: 'Cost', body: 'Right-sizing and licensing signals worth a second look.' },
 ];
 
+
+const serviceSchema = getServiceSchema({
+  name: 'Database Health Assessment',
+  description: 'A structured assessment of database performance, reliability, security, configuration, and modernization opportunities.',
+  url: '/health-assessment',
+});
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: 'Home', url: '/' },
+  { name: 'Health Assessment', url: '/health-assessment' },
+]);
+
 export default function HealthAssessmentPage() {
   return (
     <>
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <Hero
         breadcrumbLabel="Health Assessment"
         eyebrow="Database health assessment"
