@@ -1,4 +1,4 @@
-const FALLBACK_SITE_URL = 'https://dbmind.ai';
+const FALLBACK_SITE_URL = 'https://dbmindai.com';
 
 /**
  * Resolves the site's canonical base URL for metadata/sitemap/robots.

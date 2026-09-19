@@ -36,7 +36,7 @@ async function fetchFeed(source: (typeof FEED_SOURCES)[number]): Promise<NewsIte
       // cached for an hour, then transparently refetched on the next
       // request after that, rather than hit on every single page view.
       next: { revalidate: REVALIDATE_SECONDS },
-      headers: { 'User-Agent': 'DBMindAI-NewsFeed/1.0 (+https://dbmind.ai)' },
+      headers: { 'User-Agent': 'DBMindAI-NewsFeed/1.0 (+https://dbmindai.com)' },
     });
     if (!res.ok) return [];
 
