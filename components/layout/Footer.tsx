@@ -47,7 +47,7 @@ export function Footer() {
           </FooterColumn>
 
           <FooterColumn title="Connect">
-            <FooterLink href="mailto:hello@dbmind.ai">hello@dbmind.ai</FooterLink>
+            <FooterLink href="mailto:databasedoctor@dbmindai.com">databasedoctor@dbmindai.com</FooterLink>
           </FooterColumn>
         </div>
 

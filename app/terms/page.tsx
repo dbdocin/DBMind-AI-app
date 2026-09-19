@@ -130,7 +130,7 @@ export default function TermsPage() {
           title: 'Contact',
           body: (
             <p>
-              Questions about these terms: <a href="mailto:legal@dbmind.ai" className="font-semibold text-indigo">legal@dbmind.ai</a>
+              Questions about these terms: <a href="mailto:databasedoctor@dbmindai.com" className="font-semibold text-indigo">databasedoctor@dbmindai.com</a>
             </p>
           ),
         },

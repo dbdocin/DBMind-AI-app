@@ -87,9 +87,9 @@ each piece swappable later without touching the form.
   persist between requests in production. Replace with a real database
   (Postgres, etc.) and a shared rate-limit store (e.g. Upstash Redis) before
   relying on this for real leads.
-- `lib/notifications.ts` logs what it *would* send (internal + customer
-  confirmation) rather than actually emailing anyone — no email provider is
-  configured. Fill in the marked spot once one is chosen.
+- `lib/notifications.ts` — **Resend is now actually wired up** (see "Email
+  setup" below). With `EMAIL_PROVIDER` unset/`"none"` it still just logs what
+  it would send, same as before.
 - `SchedulingCard` shows a real "View available times" link only if
   `NEXT_PUBLIC_SCHEDULING_PROVIDER`/`_URL` are set; otherwise it visibly says
   scheduling isn't connected, rather than faking availability.
@@ -112,7 +112,40 @@ locally, and degrades gracefully otherwise. Self-hosting the actual font
 files via `next/font/local` is a reasonable follow-up if you want pixel-exact
 typography without any external request.
 
-## Environment variables
+## Email setup (Resend)
+
+Every submission triggers two emails: an internal alert to you, and a
+confirmation to the customer. Both currently log-only until you configure
+this — takes about 10 minutes:
+
+1. **Sign up** at [resend.com](https://resend.com) (free tier: 3,000
+   emails/month, no credit card).
+2. **Get an API key**: Dashboard → API Keys → Create API Key.
+3. **Sender address** — two options:
+   - **Fastest, zero setup**: use Resend's shared sandbox sender,
+     `onboarding@resend.dev`. Works immediately, but Resend restricts it to
+     only deliver to *your own* Resend account email — fine for verifying
+     the internal alert works, but the customer confirmation won't actually
+     reach a real customer address yet.
+   - **For real customer confirmations**: verify your own domain under
+     Dashboard → Domains (add the DNS records they give you), then use
+     something like `DBMind AI <hello@yourdomain.com>` as the sender. Do
+     this before relying on the customer-confirmation email for real leads.
+4. **Set environment variables** — locally in `.env.local`, and on Vercel
+   under Project Settings → Environment Variables (then redeploy):
+   ```
+   EMAIL_PROVIDER=resend
+   RESEND_API_KEY=re_your_key_here
+   EMAIL_FROM_ADDRESS=DBMind AI <onboarding@resend.dev>
+   LEAD_NOTIFICATION_EMAIL=databasedoctor@dbmindai.com
+   ```
+5. Submit a test request through `/contact` and confirm both emails arrive.
+
+If any of these four variables is missing, sending silently falls back to
+logging (visible in `console.info`) rather than throwing — a misconfigured
+or absent email provider can never break a lead submission.
+
+
 
 See `.env.example` — nothing is hardcoded. `NEXT_PUBLIC_*` variables are the
 only ones exposed to the browser; everything else (CRM/email keys) stays
@@ -128,6 +161,10 @@ server-side.
 - Live `/api/leads` checks — valid submission, duplicate idempotency key,
   invalid payload (bad email + missing consent), tampered enum value,
   rate-limit threshold, and cross-origin rejection all behave as specified
+- Resend integration: verified the fallback path (no provider configured →
+  logs only, submission still succeeds) end-to-end. The actual send path
+  needs a real Resend API key to test — verify it yourself per "Email setup"
+  above before relying on it.
 
 ## Known gaps / good next steps
 

@@ -181,7 +181,7 @@ export default function PrivacyPage() {
           title: 'Contact information',
           body: (
             <p>
-              Questions about this policy: <a href="mailto:privacy@dbmind.ai" className="font-semibold text-indigo">privacy@dbmind.ai</a>
+              Questions about this policy: <a href="mailto:databasedoctor@dbmindai.com" className="font-semibold text-indigo">databasedoctor@dbmindai.com</a>
             </p>
           ),
         },
