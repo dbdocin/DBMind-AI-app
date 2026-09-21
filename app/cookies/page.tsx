@@ -13,8 +13,7 @@ export default function CookiesPage() {
     <LegalPage
       eyebrow="Legal"
       title="Cookie policy"
-      updated="Placeholder version 1.0 — last updated September 2026"
-      disclaimer="This page is a design and content placeholder for the DBMind AI prototype, pending legal review."
+      updated="Version 1.0 — last updated September 2026"
       sections={[
         {
           id: 'overview',

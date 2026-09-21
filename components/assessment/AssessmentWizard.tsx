@@ -74,6 +74,7 @@ type Action =
   | { type: 'PATCH_CONSENT'; patch: Partial<ConsentInfo> }
   | { type: 'INIT_ATTRIBUTION_AND_SERVICE'; attribution: AssessmentFormState['attribution']; preselectedService: ServiceValue | null; idempotencyKey: string }
   | { type: 'SET_STEP'; step: number }
+  | { type: 'JUMP_TO_STEP_WITH_ERRORS'; step: number; errors: FieldErrors }
   | { type: 'SET_ERRORS'; errors: FieldErrors }
   | { type: 'SET_STATUS'; status: WizardStatus }
   | { type: 'SUBMIT_SUCCESS'; referenceId: string }
@@ -111,6 +112,15 @@ function reducer(state: WizardState, action: Action): WizardState {
       };
     case 'SET_STEP':
       return { ...state, step: action.step, errors: {} };
+    case 'JUMP_TO_STEP_WITH_ERRORS':
+      // Deliberately does NOT clear errors like SET_STEP does — this exists
+      // specifically for "submit failed validation, jump to the offending
+      // step AND show what's wrong there" in one atomic update. Using
+      // SET_STEP followed by a separate SET_ERRORS dispatch was the bug:
+      // SET_STEP unconditionally resets errors to {}, silently wiping out
+      // the very error the second dispatch had just set — which is exactly
+      // why an unchecked consent checkbox produced no visible feedback at all.
+      return { ...state, step: action.step, errors: action.errors };
     case 'SET_ERRORS':
       return { ...state, errors: action.errors };
     case 'SET_STATUS':
@@ -179,6 +189,7 @@ function validateStep(step: number, form: AssessmentFormState): FieldErrors {
 
   if (step === 2) {
     if (!form.consent.privacy) errors['consent.privacy'] = 'You must agree to this to submit the form';
+    if (!form.consent.terms) errors['consent.terms'] = 'You must accept the Terms of Service to submit the form';
   }
 
   return errors;
@@ -246,9 +257,12 @@ export function AssessmentWizard() {
     // forward navigation. The server re-validates everything regardless.
     const allErrors = { ...validateStep(0, state.form), ...validateStep(1, state.form), ...validateStep(2, state.form) };
     if (Object.keys(allErrors).length > 0) {
-      dispatch({ type: 'SET_ERRORS', errors: allErrors });
-      const firstErrorStep = allErrors['consent.privacy'] ? 2 : Object.keys(allErrors).some((k) => k.startsWith('contact.')) ? 0 : 1;
-      dispatch({ type: 'SET_STEP', step: firstErrorStep });
+      const firstErrorStep = allErrors['consent.privacy'] || allErrors['consent.terms']
+        ? 2
+        : Object.keys(allErrors).some((k) => k.startsWith('contact.'))
+          ? 0
+          : 1;
+      dispatch({ type: 'JUMP_TO_STEP_WITH_ERRORS', step: firstErrorStep, errors: allErrors });
       return;
     }
 

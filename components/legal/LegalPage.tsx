@@ -8,11 +8,10 @@ interface LegalPageProps {
   eyebrow: string;
   title: string;
   updated: string;
-  disclaimer: string;
   sections: LegalSection[];
 }
 
-export function LegalPage({ eyebrow, title, updated, disclaimer, sections }: LegalPageProps) {
+export function LegalPage({ eyebrow, title, updated, sections }: LegalPageProps) {
   return (
     <>
       <section className="py-16">
@@ -20,13 +19,6 @@ export function LegalPage({ eyebrow, title, updated, disclaimer, sections }: Leg
           <span className="font-mono text-[14px] font-semibold tracking-wide text-indigo">{eyebrow}</span>
           <h1 className="mt-3.5 text-[32px] font-extrabold text-navy sm:text-[38px]">{title}</h1>
           <div className="mt-2.5 font-mono text-[13px] text-ink-faint">{updated}</div>
-
-          <div className="mt-6 flex max-w-[760px] items-start gap-3 rounded-m border border-warn/30 bg-warn/10 p-5">
-            <svg viewBox="0 0 24 24" fill="none" className="mt-0.5 h-[19px] w-[19px] flex-shrink-0 text-warn" aria-hidden="true">
-              <path d="M12 9v4M12 17h.01M10.3 3.86 1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.7 3.86a2 2 0 00-3.4 0Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
-            </svg>
-            <p className="text-[13.5px] leading-relaxed text-[#8A5A22]">{disclaimer}</p>
-          </div>
         </div>
       </section>
 

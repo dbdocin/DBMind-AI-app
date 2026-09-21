@@ -53,18 +53,6 @@ export function ProjectStep({ value, errors, onChange }: ProjectStepProps) {
           </select>
         </FormField>
       </div>
-
-      <div>
-        <label className="mb-1.5 block text-[13px] font-semibold text-navy">
-          Attachments <span className="ml-1 font-medium text-ink-faint">(coming soon)</span>
-        </label>
-        <div className="rounded-s border-[1.5px] border-dashed border-line bg-bg-soft p-4 text-center text-[13px] text-ink-faint">
-          <b className="mb-1 block text-[13.5px] font-semibold text-ink-mute">File upload isn&apos;t enabled yet</b>
-          Soon you&apos;ll be able to attach diagnostic files, assessment reports, execution plans, or migration
-          inventories here. When available: do not upload credentials, passwords, connection strings, secrets, or
-          unnecessary personal/customer data.
-        </div>
-      </div>
     </div>
   );
 }

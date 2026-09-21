@@ -49,16 +49,24 @@ export function ConsentSection({ value, errors, onChange }: ConsentSectionProps)
           type="checkbox"
           checked={value.terms}
           onChange={(e) => onChange({ terms: e.target.checked })}
+          aria-invalid={!!errors['consent.terms']}
+          aria-describedby={errors['consent.terms'] ? 'consent-terms-error' : undefined}
           className="mt-0.5 h-[18px] w-[18px] flex-shrink-0 accent-indigo"
+          required
         />
         <span className="text-[13.5px] leading-relaxed text-ink">
           I have read and agree to the{' '}
           <Link href="/terms" className="font-semibold text-indigo underline underline-offset-2">
             Terms of Service
           </Link>
-          . <span className="text-ink-faint">(optional at this stage)</span>
+          .
         </span>
       </label>
+      {errors['consent.terms'] && (
+        <p id="consent-terms-error" role="alert" className="-mt-2 text-xs font-medium text-red-600">
+          {errors['consent.terms']}
+        </p>
+      )}
 
       <label className="flex items-start gap-2.5">
         <input

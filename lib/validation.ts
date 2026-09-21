@@ -112,7 +112,9 @@ const consentSchema = z.object({
   }),
   privacyPolicyVersion: z.string().min(1),
   privacyTimestamp: z.string().min(1),
-  terms: z.boolean().default(false),
+  terms: z.literal(true, {
+    errorMap: () => ({ message: 'You must accept the Terms of Service to submit this form' }),
+  }),
   termsVersion: z.string().optional().default(''),
   marketing: z.boolean().default(false),
 });

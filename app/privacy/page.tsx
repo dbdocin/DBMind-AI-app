@@ -3,7 +3,7 @@ import { LegalPage } from '@/components/legal/LegalPage';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'DBMind AI privacy policy — a placeholder structure covering data collection, consent, cookies, and data subject rights, pending legal review.',
+  description: 'How DBMind AI collects, uses, and protects information submitted through this website and in the course of database consulting engagements.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -12,21 +12,18 @@ export default function PrivacyPage() {
     <LegalPage
       eyebrow="Legal"
       title="Privacy policy"
-      updated="Placeholder version 1.0 — last updated September 2026"
-      disclaimer="This page is a design and content placeholder for the DBMind AI prototype. It is not legal advice and does not constitute a finalized privacy policy. Before publishing, this content should be reviewed, completed, and approved by qualified legal counsel."
+      updated="Version 1.0 — last updated September 2026"
       sections={[
         {
           id: 'introduction',
           title: 'Introduction',
           body: (
-            <>
-              <p>
-                DBMind AI (&quot;DBMind AI&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) provides database
-                consulting, migration, performance optimization, reliability engineering, and AI-assisted database
-                analysis services. This policy describes, at a placeholder level, how we would collect, use, and
-                protect information in connection with our website and services.
-              </p>
-            </>
+            <p>
+              DBMind AI (&quot;DBMind AI&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) provides database
+              consulting, migration, performance optimization, reliability engineering, and AI-assisted database
+              analysis services. This policy describes how we collect, use, and protect information in connection
+              with this website and our services.
+            </p>
           ),
         },
         {
@@ -67,7 +64,7 @@ export default function PrivacyPage() {
               </p>
               <ul className="flex list-disc flex-col gap-1.5 pl-5">
                 <li>Privacy consent status, policy version, and timestamp</li>
-                <li>Terms of Service acceptance status, version, and timestamp (where applicable)</li>
+                <li>Terms of Service acceptance status, version, and timestamp</li>
                 <li>Marketing opt-in status and timestamp, tracked independently of service consent</li>
               </ul>
               <p>Marketing consent is never required to submit a service request.</p>
@@ -110,7 +107,8 @@ export default function PrivacyPage() {
           body: (
             <p>
               We only send marketing communications to contacts who explicitly opted in via the marketing checkbox on
-              our forms. You may withdraw consent at any time.
+              our forms. You may withdraw consent at any time by emailing us or using the unsubscribe link included
+              in any marketing message.
             </p>
           ),
         },
@@ -119,9 +117,10 @@ export default function PrivacyPage() {
           title: 'Data retention',
           body: (
             <p>
-              Placeholder principle: information is retained only as long as necessary to fulfill the purposes
-              described in this policy, or as required by law or active engagement agreements. Specific retention
-              periods per data category should be defined by legal and data-governance review.
+              We retain lead and consultation information for as long as necessary to respond to your request,
+              deliver any engagement, and meet our own record-keeping and legal obligations — generally no longer
+              than 24 months after our last contact with you, unless a longer period is required by law or by an
+              active engagement. You may request earlier deletion at any time (see Data Subject Rights below).
             </p>
           ),
         },
@@ -140,10 +139,14 @@ export default function PrivacyPage() {
           id: 'third-party',
           title: 'Third-party services',
           body: (
-            <p>
-              We may use third-party providers for hosting, analytics, email delivery, or scheduling. This section
-              should list each processor once selected, and note whether they are essential or optional.
-            </p>
+            <>
+              <p>We use a small number of third-party providers to operate this site and respond to inquiries:</p>
+              <ul className="flex list-disc flex-col gap-1.5 pl-5">
+                <li><strong>Vercel</strong> — website hosting and infrastructure</li>
+                <li><strong>Resend</strong> — transactional email delivery (assessment confirmations and internal notifications)</li>
+              </ul>
+              <p>We do not sell personal information to third parties.</p>
+            </>
           ),
         },
         {
@@ -152,7 +155,8 @@ export default function PrivacyPage() {
           body: (
             <p>
               Depending on your jurisdiction, you may have rights to access, correct, delete, or restrict the use of
-              your personal information, and to withdraw consent previously given.
+              your personal information, and to withdraw consent previously given. To exercise any of these rights,
+              contact us using the details below and we will respond within a reasonable time.
             </p>
           ),
         },
@@ -161,8 +165,9 @@ export default function PrivacyPage() {
           title: 'International data transfers',
           body: (
             <p>
-              If information is processed in a country other than your own, this section should describe the
-              safeguards used, once hosting and processing architecture are finalized.
+              Our hosting and email providers may process data in countries other than your own. Where this occurs,
+              we rely on the safeguards those providers make available (such as standard contractual clauses) to
+              protect information in transit and at rest.
             </p>
           ),
         },
@@ -174,7 +179,7 @@ export default function PrivacyPage() {
         {
           id: 'changes',
           title: 'Changes to this policy',
-          body: <p>Material changes would be reflected by an updated version number and date at the top of this page.</p>,
+          body: <p>We may update this policy from time to time. Material changes are reflected by an updated version number and date at the top of this page.</p>,
         },
         {
           id: 'contact',
