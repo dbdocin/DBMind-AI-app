@@ -8,6 +8,11 @@ import type { LeadApiResponse } from '@/types/lead';
 
 export const runtime = 'nodejs';
 
+function fakeReferenceId(): string {
+  const num = Math.floor(100000 + Math.random() * 900000);
+  return `DBM-${num}`;
+}
+
 function getClientKey(req: NextRequest): string {
   // Prefer the standard forwarded-for header (set by Vercel/most proxies);
   // fall back to a constant so local dev still exercises the rate limiter.
@@ -75,6 +80,17 @@ export async function POST(req: NextRequest): Promise<NextResponse<LeadApiRespon
   }
 
   const data = validation.data;
+
+  // Honeypot tripped: a real user never sees or fills this field, so a
+  // non-empty value means a bot filled in every field it found. Respond as
+  // if the submission succeeded — with a plausible-looking reference ID —
+  // rather than a validation error, so a scripted bot has no signal to
+  // adapt to. No lead is created and no notification is sent.
+  if (data.honeypot) {
+    console.warn('[api/leads] honeypot triggered, discarding submission');
+    return NextResponse.json({ success: true, referenceId: fakeReferenceId() });
+  }
+
   const repository = getLeadRepository();
 
   // Idempotency: a duplicate key (double-click, browser retry, refresh after

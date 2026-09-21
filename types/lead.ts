@@ -61,6 +61,8 @@ export interface LeadApiRequest {
     utmContent?: string;
   };
   idempotencyKey: string;
+  /** Honeypot spam trap — should always be empty for a genuine submission. */
+  honeypot?: string;
 }
 
 export interface LeadApiSuccessResponse {

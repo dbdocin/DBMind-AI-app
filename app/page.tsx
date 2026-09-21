@@ -9,7 +9,11 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { getFaqSchema } from '@/lib/structuredData';
 
 export const metadata: Metadata = {
-  title: 'AI-Powered Database Consulting & Migration',
+  // The root layout's title.template ('%s — DBMind AI') only applies to
+  // nested route segments, not to app/page.tsx itself (it shares the root
+  // segment with the layout that defines the template) — so the suffix has
+  // to be spelled out here explicitly, unlike every other page's metadata.
+  title: 'AI-Powered Database Consulting & Migration — DBMind AI',
   description:
     'DBMind AI combines database engineering expertise with AI-assisted analysis — migration, performance optimization, reliability engineering, and AI-powered database operations.',
   alternates: { canonical: '/' },

@@ -81,6 +81,10 @@ export interface AssessmentFormState {
   /** Generated once per form session; sent to the API so retried/duplicate
    *  submissions (double-click, network retry) collapse into one lead. */
   idempotencyKey: string;
+  /** Honeypot spam trap — visually hidden and unreachable by keyboard/screen
+   *  reader, so a human never fills it in. Any non-empty value here means the
+   *  submission came from a bot. */
+  honeypot: string;
 }
 
 export type WizardStatus =

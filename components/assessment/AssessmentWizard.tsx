@@ -73,6 +73,7 @@ type Action =
   | { type: 'PATCH_PROJECT'; patch: Partial<ProjectInfo> }
   | { type: 'PATCH_CONSENT'; patch: Partial<ConsentInfo> }
   | { type: 'INIT_ATTRIBUTION_AND_SERVICE'; attribution: AssessmentFormState['attribution']; preselectedService: ServiceValue | null; idempotencyKey: string }
+  | { type: 'PATCH_HONEYPOT'; value: string }
   | { type: 'SET_STEP'; step: number }
   | { type: 'JUMP_TO_STEP_WITH_ERRORS'; step: number; errors: FieldErrors }
   | { type: 'SET_ERRORS'; errors: FieldErrors }
@@ -98,6 +99,8 @@ function reducer(state: WizardState, action: Action): WizardState {
       return { ...state, form: { ...state.form, project: { ...state.form.project, ...action.patch } } };
     case 'PATCH_CONSENT':
       return { ...state, form: { ...state.form, consent: { ...state.form.consent, ...action.patch } } };
+    case 'PATCH_HONEYPOT':
+      return { ...state, form: { ...state.form, honeypot: action.value } };
     case 'INIT_ATTRIBUTION_AND_SERVICE':
       return {
         ...state,
@@ -147,6 +150,7 @@ function initialState(): WizardState {
       consent: emptyConsent(),
       attribution: { landingPage: '', referrer: '', utmSource: '', utmMedium: '', utmCampaign: '', utmTerm: '', utmContent: '' },
       idempotencyKey: '',
+      honeypot: '',
     },
     step: 0,
     status: 'editing',
@@ -293,6 +297,7 @@ export function AssessmentWizard() {
       },
       attribution: { ...state.form.attribution },
       idempotencyKey: state.form.idempotencyKey,
+      honeypot: state.form.honeypot,
     };
 
     try {
@@ -356,6 +361,23 @@ export function AssessmentWizard() {
 
   return (
     <div className="rounded-l border border-line bg-white p-6 shadow-elevated sm:p-8">
+      {/* Honeypot spam trap: off-screen and unreachable by keyboard/screen
+          reader, so no human ever fills it in — a bot that fills every field
+          it finds will. Checked server-side in the API route; see
+          app/api/leads/route.ts. */}
+      <div className="absolute left-[-9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={state.form.honeypot}
+          onChange={(e) => dispatch({ type: 'PATCH_HONEYPOT', value: e.target.value })}
+        />
+      </div>
+
       <StepIndicator currentStep={state.step} />
 
       {stepContent}

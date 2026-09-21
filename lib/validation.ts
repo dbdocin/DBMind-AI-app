@@ -146,6 +146,12 @@ export const leadApiRequestSchema = z
     consent: consentSchema,
     attribution: attributionSchema,
     idempotencyKey: z.string().trim().min(8).max(128),
+    // Honeypot spam trap — a real user never sees or fills this field (it's
+    // rendered off-screen and unreachable by keyboard/screen reader). Kept
+    // permissive here (any string, always optional) since the actual
+    // spam-vs-not decision is made in the API route, not by rejecting the
+    // request outright — see app/api/leads/route.ts.
+    honeypot: z.string().optional().default(''),
   })
   .superRefine((data, ctx) => {
     // Conditional requirements — mirror the wizard's progressive disclosure,
