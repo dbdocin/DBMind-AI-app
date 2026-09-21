@@ -4,9 +4,16 @@
 // nonce-based CSP is possible but requires generating a per-request nonce in
 // middleware — a bigger change than this header config; see Next.js's CSP
 // guide for that path if this ever needs tightening further.
+//
+// 'unsafe-eval' is added to script-src ONLY in development: `next dev`'s Fast
+// Refresh evaluates code via eval() to patch modules in place, and a CSP
+// without 'unsafe-eval' silently breaks all client-side hydration in dev
+// (discovered by e2e tests against `next dev` failing across the board — the
+// production build never eval()s, so this never showed up there).
+const isDev = process.env.NODE_ENV !== 'production';
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self' data:",

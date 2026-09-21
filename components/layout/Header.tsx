@@ -73,7 +73,8 @@ export function Header() {
           instead of the real viewport, causing exactly the glitchy
           partial-visibility-while-scrolling bug this fixes. Keeping this
           panel outside the blurred header entirely avoids the problem. */}
-      <div
+      <nav
+        aria-label="Mobile"
         className={`fixed inset-0 top-[72px] z-[90] flex flex-col gap-5 overflow-y-auto bg-white p-6 transition-transform duration-200 lg:hidden ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
@@ -100,7 +101,7 @@ export function Header() {
             </Link>
           </li>
         </ul>
-      </div>
+      </nav>
     </>
   );
 }
